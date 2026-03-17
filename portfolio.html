@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Emilio Madrigal Mendoza — ECE</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #F5F3EF;
+    --ink: #1A1A18;
+    --muted: #7A7870;
+    --accent: #2D5FA8;
+    --rule: #D6D2CA;
+    --card-bg: #EFECE6;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 60px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    opacity: 0;
+    animation: fadeIn 0.8s ease 0.1s forwards;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(120px, 18vw, 240px);
+    font-weight: 300;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--rule);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 0.3s forwards;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-label {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: slideUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 8vw, 100px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: slideUp 0.8s ease 0.55s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    opacity: 0;
+    animation: slideUp 0.8s ease 0.7s forwards;
+  }
+
+  .hero-desc {
+    max-width: 420px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .hero-scroll {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .hero-scroll-line {
+    width: 1px;
+    height: 48px;
+    background: var(--muted);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* SECTION COMMON */
+  section {
+    padding: 100px 60px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 64px;
+  }
+
+  .section-num {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+  }
+
+  /* ABOUT */
+  #about .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-bio {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  .about-bio p + p { margin-top: 20px; }
+
+  .about-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .sidebar-block {}
+
+  .sidebar-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .tag {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--rule);
+    padding: 5px 10px;
+    color: var(--muted);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* PROJECTS */
+  #projects .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .project-card {
+    background: var(--card-bg);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: background 0.25s;
+    cursor: default;
+  }
+
+  .project-card:hover { background: #E8E4DB; }
+
+  .project-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .project-num {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .project-domain {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 3px 8px;
+    opacity: 0.8;
+  }
+
+  .project-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .project-desc {
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--muted);
+    flex-grow: 1;
+  }
+
+  .project-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .tool-chip {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    background: var(--bg);
+    padding: 3px 8px;
+    border: 1px solid var(--rule);
+  }
+
+  /* CONTACT */
+  #contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .contact-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.15;
+  }
+
+  .contact-tagline em { font-style: italic; color: var(--accent); }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .contact-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .contact-item-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .contact-item-value {
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-item-value:hover { color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 28px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* REVEAL ON SCROLL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 18px 24px; }
+    #hero { padding: 0 24px 60px; }
+    section { padding: 72px 24px; }
+
+    #about .about-grid,
+    #projects .projects-grid,
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+
+    footer { flex-direction: column; gap: 10px; text-align: center; }
+    .nav-links { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#hero">EMM</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">ECE</div>
+  <div class="hero-content">
+    <p class="hero-label">Electrical &amp; Computer Engineering — Duke University</p>
+    <h1 class="hero-name">
+      Emilio<br/>
+      <em>Madrigal</em><br/>
+      Mendoza
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        Building at the intersection of hardware, firmware, and computation —
+        from microrobot propulsion to RISC processors.
+      </p>
+      <a class="hero-scroll" href="#about">
+        <span>Scroll</span>
+        <span class="hero-scroll-line"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">About Me</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-bio reveal">
+      <p>
+        I'm a sophomore at Duke University studying Electrical and Computer Engineering,
+        with a focus on building and understanding complex systems — from embedded hardware
+        to large-scale infrastructure.
+      </p>
+      <p>
+        Born in Mexico and raised in the U.S. since age 14, I bring a perspective shaped
+        by adaptability, discipline, and curiosity. My work spans hands-on engineering and
+        research, including developing microrobotics systems and designing hardware/software
+        projects that integrate computation with the physical world.
+      </p>
+      <p>
+        I'm especially interested in how engineering can power the next generation of
+        technologies in energy, robotics, and beyond.
+      </p>
+    </div>
+    <div class="about-sidebar reveal">
+      <div class="sidebar-block">
+        <p class="sidebar-label">Focus Areas</p>
+        <div class="tag-list">
+          <span class="tag">PCB Design</span>
+          <span class="tag">Signal Processing</span>
+          <span class="tag">Embedded Systems</span>
+          <span class="tag">Power Systems</span>
+          <span class="tag">Microrobotics</span>
+          <span class="tag">Digital Logic</span>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <p class="sidebar-label">Education</p>
+        <div class="tag-list">
+          <span class="tag">Duke University</span>
+          <span class="tag">ECE Sophomore</span>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <p class="sidebar-label">Tools &amp; Languages</p>
+        <div class="tag-list">
+          <span class="tag">C / C++</span>
+          <span class="tag">Java</span>
+          <span class="tag">Assembly</span>
+          <span class="tag">Logisim</span>
+          <span class="tag">Arduino</span>
+          <span class="tag">NIR Laser Systems</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Projects</h2>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-card-top">
+        <span class="project-num">001</span>
+        <span class="project-domain">Microrobotics</span>
+      </div>
+      <h3 class="project-title">MXene Vapor-Propelled Microrobot</h3>
+      <p class="project-desc">
+        Developed an untethered microrobot using MXene-based composite films and laser-induced
+        vapor propulsion. Designed and tested propulsion mechanisms, identifying asymmetric
+        vapor jetting as a controllable method for rotational flight and stability.
+      </p>
+      <div class="project-tools">
+        <span class="tool-chip">Material Fabrication</span>
+        <span class="tool-chip">NIR Laser Systems</span>
+        <span class="tool-chip">Experimental Testing</span>
+        <span class="tool-chip">Data Analysis</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-card-top">
+        <span class="project-num">002</span>
+        <span class="project-domain">Digital Logic</span>
+      </div>
+      <h3 class="project-title">16-bit RISC CPU</h3>
+      <p class="project-desc">
+        Engineered a single-cycle 16-bit RISC processor with a custom instruction set,
+        including ALU, control unit, and register file. Implemented and debugged
+        assembly-level programs such as Fibonacci sequence generation and prime detection.
+      </p>
+      <div class="project-tools">
+        <span class="tool-chip">Logisim Evolution</span>
+        <span class="tool-chip">Assembly</span>
+        <span class="tool-chip">Digital Logic Design</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-card-top">
+        <span class="project-num">003</span>
+        <span class="project-domain">Embedded Systems</span>
+      </div>
+      <h3 class="project-title">Autonomous CX-Bot</h3>
+      <p class="project-desc">
+        Designed and programmed an autonomous robot capable of navigation, sensing, and
+        communication. Integrated sensors and wireless modules to enable coordinated
+        movement and real-time data exchange between units.
+      </p>
+      <div class="project-tools">
+        <span class="tool-chip">Arduino</span>
+        <span class="tool-chip">C / C++</span>
+        <span class="tool-chip">XBee</span>
+        <span class="tool-chip">QTI Sensors</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-card-top">
+        <span class="project-num">004</span>
+        <span class="project-domain">Algorithms</span>
+      </div>
+      <h3 class="project-title">Highway Route Finder</h3>
+      <p class="project-desc">
+        Built a scalable route planning system using Dijkstra's algorithm to compute
+        shortest paths across large transportation datasets. Focused on algorithmic
+        efficiency and clean object-oriented design principles.
+      </p>
+      <div class="project-tools">
+        <span class="tool-chip">Java</span>
+        <span class="tool-chip">OOP</span>
+        <span class="tool-chip">Graph Algorithms</span>
+        <span class="tool-chip">File I/O</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Contact</h2>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-tagline reveal">
+      Let's build<br/><em>something</em><br/>together.
+    </div>
+    <div class="contact-links reveal">
+      <div class="contact-item">
+        <span class="contact-item-label">Email</span>
+        <a class="contact-item-value" href="mailto:emiliomadrigal1999@gmail.com">
+          emiliomadrigal1999@gmail.com
+        </a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">LinkedIn</span>
+        <a class="contact-item-value" href="https://www.linkedin.com/in/emilio-madrigal-804b69216/" target="_blank" rel="noopener">
+          linkedin.com/in/emilio-madrigal
+        </a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-item-label">Location</span>
+        <span class="contact-item-value">Durham, NC — Duke University</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Emilio Madrigal Mendoza</span>
+  <span>ECE — Duke University</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
