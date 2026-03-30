@@ -29,7 +29,6 @@
     min-height: 100vh;
   }
 
-  /* NAV */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -70,7 +69,6 @@
 
   .nav-links a:hover { color: var(--ink); }
 
-  /* HERO */
   #hero {
     min-height: 100vh;
     display: flex;
@@ -98,10 +96,7 @@
     animation: fadeIn 1.2s ease 0.3s forwards;
   }
 
-  .hero-content {
-    position: relative;
-    z-index: 2;
-  }
+  .hero-content { position: relative; z-index: 2; }
 
   .hero-label {
     font-size: 11px;
@@ -124,10 +119,7 @@
     animation: slideUp 0.8s ease 0.55s forwards;
   }
 
-  .hero-name em {
-    font-style: italic;
-    color: var(--accent);
-  }
+  .hero-name em { font-style: italic; color: var(--accent); }
 
   .hero-bottom {
     display: flex;
@@ -163,7 +155,6 @@
     animation: pulse 2s ease-in-out infinite;
   }
 
-  /* SECTION COMMON */
   section {
     padding: 100px 60px;
     border-top: 1px solid var(--rule);
@@ -190,7 +181,6 @@
     line-height: 1.1;
   }
 
-  /* ABOUT */
   #about .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -211,8 +201,6 @@
     flex-direction: column;
     gap: 32px;
   }
-
-  .sidebar-block {}
 
   .sidebar-label {
     font-size: 10px;
@@ -243,7 +231,6 @@
 
   .tag:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* PROJECTS */
   #projects .projects-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -258,6 +245,10 @@
     gap: 16px;
     transition: background 0.25s;
     cursor: default;
+  }
+
+  .project-card.full-width {
+    grid-column: 1 / -1;
   }
 
   .project-card:hover { background: #E8E4DB; }
@@ -315,12 +306,7 @@
     border: 1px solid var(--rule);
   }
 
-  /* CONTACT */
-  #contact {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  #contact { display: flex; flex-direction: column; gap: 0; }
 
   .contact-inner {
     display: grid;
@@ -338,11 +324,7 @@
 
   .contact-tagline em { font-style: italic; color: var(--accent); }
 
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
+  .contact-links { display: flex; flex-direction: column; gap: 24px; }
 
   .contact-item {
     display: flex;
@@ -370,7 +352,6 @@
 
   .contact-item-value:hover { color: var(--accent); }
 
-  /* FOOTER */
   footer {
     border-top: 1px solid var(--rule);
     padding: 28px 60px;
@@ -382,43 +363,32 @@
     letter-spacing: 0.06em;
   }
 
-  /* ANIMATIONS */
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-
+  @keyframes fadeIn { to { opacity: 1; } }
   @keyframes slideUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
   @keyframes pulse {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 1; }
   }
 
-  /* REVEAL ON SCROLL */
   .reveal {
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
 
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* RESPONSIVE */
   @media (max-width: 768px) {
     nav { padding: 18px 24px; }
     #hero { padding: 0 24px 60px; }
     section { padding: 72px 24px; }
-
     #about .about-grid,
     #projects .projects-grid,
     .contact-inner { grid-template-columns: 1fr; gap: 40px; }
-
+    .project-card.full-width { grid-column: 1; }
     footer { flex-direction: column; gap: 10px; text-align: center; }
     .nav-links { gap: 20px; }
   }
@@ -435,7 +405,6 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-bg-text">ECE</div>
   <div class="hero-content">
@@ -458,7 +427,6 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="section-header reveal">
     <span class="section-num">01</span>
@@ -516,7 +484,6 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
   <div class="section-header reveal">
     <span class="section-num">02</span>
@@ -599,10 +566,33 @@
       </div>
     </div>
 
+    <div class="project-card full-width reveal">
+      <div class="project-card-top">
+        <span class="project-num">005</span>
+        <span class="project-domain">Hackathon</span>
+      </div>
+      <h3 class="project-title">Forage — Gamified Nature Exploration App</h3>
+      <p class="project-desc">
+        Built a full-stack mobile app in 24 hours at HackDuke 2026 where users photograph
+        plants and animals, triggering GPT-4o Vision to identify the species and auto-generate
+        a fact card with habitat, ecological relevance, and conservation notes. Engineered a
+        gamification and live expedition tracking system with a points engine featuring
+        diminishing returns, rare species bonuses, and badge awards, alongside Auth0 PKCE
+        authentication and a Supabase PostgreSQL backend.
+      </p>
+      <div class="project-tools">
+        <span class="tool-chip">React Native</span>
+        <span class="tool-chip">Expo</span>
+        <span class="tool-chip">TypeScript</span>
+        <span class="tool-chip">Supabase</span>
+        <span class="tool-chip">OpenAI GPT-4o</span>
+        <span class="tool-chip">Auth0</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="section-header reveal">
     <span class="section-num">03</span>
@@ -639,7 +629,6 @@
 </footer>
 
 <script>
-  // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
