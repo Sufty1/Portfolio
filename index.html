@@ -283,6 +283,18 @@
     line-height: 1.2;
   }
 
+  .project-title-link {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .project-title-link:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
   .project-desc {
     font-size: 12px;
     line-height: 1.8;
@@ -305,6 +317,18 @@
     padding: 3px 8px;
     border: 1px solid var(--rule);
   }
+
+  .project-link {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    margin-top: 4px;
+    display: inline-block;
+  }
+
+  .project-link:hover { text-decoration: underline; }
 
   #contact { display: flex; flex-direction: column; gap: 0; }
 
@@ -533,6 +557,30 @@
         <span class="project-num">003</span>
         <span class="project-domain">Embedded Systems</span>
       </div>
+      <h3 class="project-title">
+        <a class="project-title-link" href="https://github.com/Sufty1/esp32-motor-controller" target="_blank" rel="noopener">ESP32 Open-Loop DC Motor Speed Controller</a>
+      </h3>
+      <p class="project-desc">
+        Designed an open-loop PWM motor speed controller on ESP32 with potentiometer
+        input, OLED telemetry, and a two-way Bluetooth Serial interface for remote
+        speed override. Diagnosed and corrected ESP32 ADC non-linearity by recalibrating
+        the PWM mapping function, eliminating control discontinuities at high duty cycle.
+      </p>
+      <div class="project-tools">
+        <span class="tool-chip">ESP32</span>
+        <span class="tool-chip">C / C++</span>
+        <span class="tool-chip">L298N H-Bridge</span>
+        <span class="tool-chip">SSD1306 OLED</span>
+        <span class="tool-chip">Bluetooth SPP</span>
+      </div>
+      <a class="project-link" href="https://github.com/Sufty1/esp32-motor-controller" target="_blank" rel="noopener">View on GitHub →</a>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-card-top">
+        <span class="project-num">004</span>
+        <span class="project-domain">Embedded Systems</span>
+      </div>
       <h3 class="project-title">Autonomous CX-Bot</h3>
       <p class="project-desc">
         Designed and programmed an autonomous robot capable of navigation, sensing, and
@@ -549,7 +597,7 @@
 
     <div class="project-card reveal">
       <div class="project-card-top">
-        <span class="project-num">004</span>
+        <span class="project-num">005</span>
         <span class="project-domain">Algorithms</span>
       </div>
       <h3 class="project-title">Highway Route Finder</h3>
@@ -568,7 +616,7 @@
 
     <div class="project-card full-width reveal">
       <div class="project-card-top">
-        <span class="project-num">005</span>
+        <span class="project-num">006</span>
         <span class="project-domain">Hackathon</span>
       </div>
       <h3 class="project-title">Forage — Gamified Nature Exploration App</h3>
@@ -616,6 +664,12 @@
         </a>
       </div>
       <div class="contact-item">
+        <span class="contact-item-label">GitHub</span>
+        <a class="contact-item-value" href="https://github.com/Sufty1" target="_blank" rel="noopener">
+          github.com/Sufty1
+        </a>
+      </div>
+      <div class="contact-item">
         <span class="contact-item-label">Location</span>
         <span class="contact-item-value">Durham, NC — Duke University | Citrus Heights, CA</span>
       </div>
@@ -624,7 +678,7 @@
 </section>
 
 <footer>
-  <span>© 2025 Emilio Madrigal Mendoza</span>
+  <span>© 2026 Emilio Madrigal Mendoza</span>
   <span>ECE — Duke University</span>
 </footer>
 
