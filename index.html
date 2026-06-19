@@ -4,19 +4,20 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Emilio Madrigal Mendoza — ECE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
   :root {
     --bg: #F5F3EF;
     --ink: #1A1A18;
-    --muted: #7A7870;
+    --muted: #6B6960;
     --accent: #2D5FA8;
     --rule: #D6D2CA;
     --card-bg: #EFECE6;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -29,6 +30,7 @@
     min-height: 100vh;
   }
 
+  /* ── NAV ── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -56,6 +58,7 @@
     display: flex;
     gap: 36px;
     list-style: none;
+    align-items: center;
   }
 
   .nav-links a {
@@ -69,6 +72,19 @@
 
   .nav-links a:hover { color: var(--ink); }
 
+  .nav-resume a {
+    color: var(--accent) !important;
+    border: 1px solid var(--accent);
+    padding: 5px 12px;
+    transition: background 0.2s, color 0.2s !important;
+  }
+
+  .nav-resume a:hover {
+    background: var(--accent);
+    color: var(--bg) !important;
+  }
+
+  /* ── HERO ── */
   #hero {
     min-height: 100vh;
     display: flex;
@@ -81,8 +97,7 @@
 
   .hero-bg-text {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(120px, 18vw, 240px);
@@ -97,6 +112,26 @@
   }
 
   .hero-content { position: relative; z-index: 2; }
+
+  .hero-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: slideUp 0.8s ease 0.3s forwards;
+  }
+
+  .hero-status-dot {
+    width: 6px; height: 6px;
+    background: #3DAA5C;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
 
   .hero-label {
     font-size: 11px;
@@ -129,12 +164,33 @@
     animation: slideUp 0.8s ease 0.7s forwards;
   }
 
-  .hero-desc {
+  .hero-desc-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     max-width: 420px;
+  }
+
+  .hero-desc {
     color: var(--muted);
     font-size: 12px;
     line-height: 1.8;
   }
+
+  .hero-cta {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 9px 18px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    width: fit-content;
+  }
+
+  .hero-cta:hover { background: var(--accent); color: var(--bg); }
 
   .hero-scroll {
     font-size: 11px;
@@ -149,12 +205,12 @@
   }
 
   .hero-scroll-line {
-    width: 1px;
-    height: 48px;
+    width: 1px; height: 48px;
     background: var(--muted);
     animation: pulse 2s ease-in-out infinite;
   }
 
+  /* ── SECTIONS ── */
   section {
     padding: 100px 60px;
     border-top: 1px solid var(--rule);
@@ -181,6 +237,7 @@
     line-height: 1.1;
   }
 
+  /* ── ABOUT ── */
   #about .about-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -231,27 +288,87 @@
 
   .tag:hover { border-color: var(--accent); color: var(--accent); }
 
+  /* ── PROJECT CARDS ── */
   #projects .projects-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2px;
+    gap: 3px;
   }
 
   .project-card {
     background: var(--card-bg);
-    padding: 40px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    overflow: hidden;
     transition: background 0.25s;
-    cursor: default;
   }
 
-  .project-card.full-width {
-    grid-column: 1 / -1;
-  }
-
+  .project-card.full-width { grid-column: 1 / -1; }
   .project-card:hover { background: #E8E4DB; }
+
+  /* Image at top — edge-to-edge, clickable */
+  .project-img-link {
+    display: block;
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: zoom-in;
+  }
+
+  .project-img-slot {
+    height: 220px;
+    overflow: hidden;
+  }
+
+  .project-img-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.45s ease;
+  }
+
+  .project-img-slot img.contain {
+    object-fit: contain;
+    background: #E2DFD8;
+    padding: 12px;
+  }
+
+  .project-img-link:hover .project-img-slot img { transform: scale(1.04); }
+
+  /* Gallery (Forage full-width card) */
+  .project-img-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    height: 320px;
+    flex-shrink: 0;
+  }
+
+  .project-img-gallery .project-img-link {
+    height: 100%;
+    cursor: zoom-in;
+  }
+
+  .project-img-gallery .project-img-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    transition: transform 0.45s ease;
+  }
+
+  .project-img-gallery .project-img-link:hover img { transform: scale(1.04); }
+
+  /* Card text body */
+  .project-card-body {
+    padding: 28px 36px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex-grow: 1;
+  }
 
   .project-card-top {
     display: flex;
@@ -306,7 +423,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    margin-top: 8px;
   }
 
   .tool-chip {
@@ -324,12 +440,12 @@
     text-transform: uppercase;
     color: var(--accent);
     text-decoration: none;
-    margin-top: 4px;
     display: inline-block;
   }
 
   .project-link:hover { text-decoration: underline; }
 
+  /* ── CONTACT ── */
   #contact { display: flex; flex-direction: column; gap: 0; }
 
   .contact-inner {
@@ -376,6 +492,7 @@
 
   .contact-item-value:hover { color: var(--accent); }
 
+  /* ── FOOTER ── */
   footer {
     border-top: 1px solid var(--rule);
     padding: 28px 60px;
@@ -387,14 +504,15 @@
     letter-spacing: 0.06em;
   }
 
+  /* ── ANIMATIONS ── */
   @keyframes fadeIn { to { opacity: 1; } }
   @keyframes slideUp {
     from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes pulse {
     0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
+    50%       { opacity: 1; }
   }
 
   .reveal {
@@ -405,8 +523,10 @@
 
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     nav { padding: 18px 24px; }
+    .nav-links { gap: 20px; }
     #hero { padding: 0 24px 60px; }
     section { padding: 72px 24px; }
     #about .about-grid,
@@ -414,7 +534,19 @@
     .contact-inner { grid-template-columns: 1fr; gap: 40px; }
     .project-card.full-width { grid-column: 1; }
     footer { flex-direction: column; gap: 10px; text-align: center; }
-    .nav-links { gap: 20px; }
+    .hero-bottom { flex-direction: column; gap: 24px; align-items: flex-start; }
+    .hero-scroll { flex-direction: row; gap: 16px; }
+    .hero-scroll-line { width: 48px; height: 1px; }
+    .project-img-slot { height: 200px; }
+    .project-img-gallery { grid-template-columns: 1fr; height: auto; }
+    .project-img-gallery .project-img-link { height: 240px; }
+    .project-img-gallery .project-img-link:nth-child(n+2) { display: none; }
+    .project-card-body { padding: 22px 24px 28px; }
+  }
+
+  @media (max-width: 480px) {
+    .nav-resume { display: none; }
+    .nav-links { gap: 16px; }
   }
 </style>
 </head>
@@ -426,12 +558,17 @@
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li class="nav-resume"><a href="./Emilio%20Madrigal%20Mendoza%20-%20RESUME.pdf" download>Resume</a></li>
   </ul>
 </nav>
 
 <section id="hero">
   <div class="hero-bg-text">ECE</div>
   <div class="hero-content">
+    <div class="hero-status">
+      <span class="hero-status-dot"></span>
+      Open to internship opportunities
+    </div>
     <p class="hero-label">Electrical &amp; Computer Engineering — Duke University</p>
     <h1 class="hero-name">
       Emilio<br/>
@@ -439,11 +576,14 @@
       Mendoza
     </h1>
     <div class="hero-bottom">
-      <p class="hero-desc">
-        Building at the intersection of hardware, firmware, and computation —
-        from microrobot propulsion to RISC processors.
-      </p>
-      <a class="hero-scroll" href="#about">
+      <div class="hero-desc-group">
+        <p class="hero-desc">
+          Building at the intersection of hardware, firmware, and computation —
+          from microrobot propulsion to RISC processors.
+        </p>
+        <a class="hero-cta" href="./Emilio%20Madrigal%20Mendoza%20-%20RESUME.pdf" download>Download Resume →</a>
+      </div>
+      <a class="hero-scroll" href="#about" aria-label="Scroll to About section">
         <span>Scroll</span>
         <span class="hero-scroll-line"></span>
       </a>
@@ -515,126 +655,178 @@
   </div>
   <div class="projects-grid">
 
+    <!-- 001: No image (research restriction) -->
     <div class="project-card reveal">
-      <div class="project-card-top">
-        <span class="project-num">001</span>
-        <span class="project-domain">Microrobotics</span>
-      </div>
-      <h3 class="project-title">MXene Vapor-Propelled Microrobot</h3>
-      <p class="project-desc">
-        Developed an untethered microrobot using MXene-based composite films and laser-induced
-        vapor propulsion. Designed and tested propulsion mechanisms, identifying asymmetric
-        vapor jetting as a controllable method for rotational flight and stability.
-      </p>
-      <div class="project-tools">
-        <span class="tool-chip">Material Fabrication</span>
-        <span class="tool-chip">NIR Laser Systems</span>
-        <span class="tool-chip">Experimental Testing</span>
-        <span class="tool-chip">Data Analysis</span>
+      <div class="project-card-body">
+        <div class="project-card-top">
+          <span class="project-num">001</span>
+          <span class="project-domain">Microrobotics</span>
+        </div>
+        <h3 class="project-title">MXene Vapor-Propelled Microrobot</h3>
+        <p class="project-desc">
+          Identified asymmetric vapor jetting as the mechanism behind controllable rotational
+          flight in an untethered microrobot — fabricated MXene composite films, characterized
+          propulsion under NIR laser irradiation, and confirmed stability through systematic
+          experimental testing.
+        </p>
+        <div class="project-tools">
+          <span class="tool-chip">Material Fabrication</span>
+          <span class="tool-chip">NIR Laser Systems</span>
+          <span class="tool-chip">Experimental Testing</span>
+          <span class="tool-chip">Data Analysis</span>
+        </div>
       </div>
     </div>
 
+    <!-- 002: Logisim schematic -->
     <div class="project-card reveal">
-      <div class="project-card-top">
-        <span class="project-num">002</span>
-        <span class="project-domain">Digital Logic</span>
-      </div>
-      <h3 class="project-title">16-bit RISC CPU</h3>
-      <p class="project-desc">
-        Engineered a single-cycle 16-bit RISC processor with a custom instruction set,
-        including ALU, control unit, and register file. Implemented and debugged
-        assembly-level programs such as Fibonacci sequence generation and prime detection.
-      </p>
-      <div class="project-tools">
-        <span class="tool-chip">Logisim Evolution</span>
-        <span class="tool-chip">Assembly</span>
-        <span class="tool-chip">Digital Logic Design</span>
+      <a class="project-img-link" href="./cpu.png" target="_blank" rel="noopener" aria-label="View full Logisim schematic">
+        <div class="project-img-slot">
+          <img class="contain" src="./cpu.png" alt="Logisim circuit diagram of the complete 16-bit single-cycle RISC processor"/>
+        </div>
+      </a>
+      <div class="project-card-body">
+        <div class="project-card-top">
+          <span class="project-num">002</span>
+          <span class="project-domain">Digital Logic</span>
+        </div>
+        <h3 class="project-title">16-bit RISC CPU</h3>
+        <p class="project-desc">
+          Built and verified a complete single-cycle 16-bit RISC processor in Logisim —
+          designed the custom ISA, ALU, register file, and control unit from scratch, then
+          validated correct execution by running hand-written assembly programs including
+          Fibonacci generation and prime detection.
+        </p>
+        <div class="project-tools">
+          <span class="tool-chip">Logisim Evolution</span>
+          <span class="tool-chip">Assembly</span>
+          <span class="tool-chip">Digital Logic Design</span>
+        </div>
       </div>
     </div>
 
+    <!-- 003: ESP32 breadboard photo -->
     <div class="project-card reveal">
-      <div class="project-card-top">
-        <span class="project-num">003</span>
-        <span class="project-domain">Embedded Systems</span>
-      </div>
-      <h3 class="project-title">
-        <a class="project-title-link" href="https://github.com/Sufty1/esp32-motor-controller" target="_blank" rel="noopener">ESP32 Open-Loop DC Motor Speed Controller</a>
-      </h3>
-      <p class="project-desc">
-        Designed an open-loop PWM motor speed controller on ESP32 with potentiometer
-        input, OLED telemetry, and a two-way Bluetooth Serial interface for remote
-        speed override. Diagnosed and corrected ESP32 ADC non-linearity by recalibrating
-        the PWM mapping function, eliminating control discontinuities at high duty cycle.
-      </p>
-      <div class="project-tools">
-        <span class="tool-chip">ESP32</span>
-        <span class="tool-chip">C / C++</span>
-        <span class="tool-chip">L298N H-Bridge</span>
-        <span class="tool-chip">SSD1306 OLED</span>
-        <span class="tool-chip">Bluetooth SPP</span>
-      </div>
-      <a class="project-link" href="https://github.com/Sufty1/esp32-motor-controller" target="_blank" rel="noopener">View on GitHub →</a>
-    </div>
-
-    <div class="project-card reveal">
-      <div class="project-card-top">
-        <span class="project-num">004</span>
-        <span class="project-domain">Embedded Systems</span>
-      </div>
-      <h3 class="project-title">Autonomous CX-Bot</h3>
-      <p class="project-desc">
-        Designed and programmed an autonomous robot capable of navigation, sensing, and
-        communication. Integrated sensors and wireless modules to enable coordinated
-        movement and real-time data exchange between units.
-      </p>
-      <div class="project-tools">
-        <span class="tool-chip">Arduino</span>
-        <span class="tool-chip">C / C++</span>
-        <span class="tool-chip">XBee</span>
-        <span class="tool-chip">QTI Sensors</span>
+      <a class="project-img-link" href="./esp32%20project/Screenshot%202026-06-18%20230323.png" target="_blank" rel="noopener" aria-label="View ESP32 motor controller breadboard">
+        <div class="project-img-slot">
+          <img src="./esp32%20project/Screenshot%202026-06-18%20230323.png" alt="ESP32 motor controller breadboard with L298N H-bridge, DC motor, and wiring"/>
+        </div>
+      </a>
+      <div class="project-card-body">
+        <div class="project-card-top">
+          <span class="project-num">003</span>
+          <span class="project-domain">Embedded Systems</span>
+        </div>
+        <h3 class="project-title">
+          <a class="project-title-link" href="https://github.com/Sufty1/esp32-motor-controller" target="_blank" rel="noopener">ESP32 Open-Loop DC Motor Speed Controller</a>
+        </h3>
+        <p class="project-desc">
+          Diagnosed and corrected ESP32 ADC non-linearity — recalibrated the PWM duty-cycle
+          mapping to eliminate control discontinuities at high duty cycle. The system integrates
+          potentiometer input, SSD1306 OLED telemetry display, and a bidirectional Bluetooth
+          Serial interface for remote speed override.
+        </p>
+        <div class="project-tools">
+          <span class="tool-chip">ESP32</span>
+          <span class="tool-chip">C / C++</span>
+          <span class="tool-chip">L298N H-Bridge</span>
+          <span class="tool-chip">SSD1306 OLED</span>
+          <span class="tool-chip">Bluetooth SPP</span>
+        </div>
+        <a class="project-link" href="https://github.com/Sufty1/esp32-motor-controller" target="_blank" rel="noopener">View on GitHub →</a>
       </div>
     </div>
 
+    <!-- 004: CX-Bot on track -->
     <div class="project-card reveal">
-      <div class="project-card-top">
-        <span class="project-num">005</span>
-        <span class="project-domain">Algorithms</span>
-      </div>
-      <h3 class="project-title">Highway Route Finder</h3>
-      <p class="project-desc">
-        Built a scalable route planning system using Dijkstra's algorithm to compute
-        shortest paths across large transportation datasets. Focused on algorithmic
-        efficiency and clean object-oriented design principles.
-      </p>
-      <div class="project-tools">
-        <span class="tool-chip">Java</span>
-        <span class="tool-chip">OOP</span>
-        <span class="tool-chip">Graph Algorithms</span>
-        <span class="tool-chip">File I/O</span>
+      <a class="project-img-link" href="./autonomous%20robot/IMG_2100.jpg" target="_blank" rel="noopener" aria-label="View CX-Bot photo">
+        <div class="project-img-slot">
+          <img src="./autonomous%20robot/IMG_2100.jpg" alt="Autonomous CX-Bot on line-following track with XBee module and LED indicator active"/>
+        </div>
+      </a>
+      <div class="project-card-body">
+        <div class="project-card-top">
+          <span class="project-num">004</span>
+          <span class="project-domain">Embedded Systems</span>
+        </div>
+        <h3 class="project-title">Autonomous CX-Bot</h3>
+        <p class="project-desc">
+          Programmed an Arduino-based autonomous robot to navigate via QTI line sensors
+          and coordinate with peer units over XBee wireless — implementing the inter-unit
+          communication protocol and sensor fusion logic in C++.
+        </p>
+        <div class="project-tools">
+          <span class="tool-chip">Arduino</span>
+          <span class="tool-chip">C / C++</span>
+          <span class="tool-chip">XBee</span>
+          <span class="tool-chip">QTI Sensors</span>
+        </div>
       </div>
     </div>
 
+    <!-- 005: Route finder map -->
+    <div class="project-card reveal">
+      <a class="project-img-link" href="./route%20finder/Screenshot%202026-06-18%20231746.png" target="_blank" rel="noopener" aria-label="View route finder output">
+        <div class="project-img-slot">
+          <img src="./route%20finder/Screenshot%202026-06-18%20231746.png" alt="Shortest path computed from Las Vegas NV to Durham NC across the US highway graph"/>
+        </div>
+      </a>
+      <div class="project-card-body">
+        <div class="project-card-top">
+          <span class="project-num">005</span>
+          <span class="project-domain">Algorithms</span>
+        </div>
+        <h3 class="project-title">Highway Route Finder</h3>
+        <p class="project-desc">
+          Implemented Dijkstra's shortest-path algorithm in Java over a large highway graph
+          dataset — applied a priority queue for O(E log V) performance and modeled the road
+          network as a weighted graph with clean OOP separation between routing logic and
+          data I/O.
+        </p>
+        <div class="project-tools">
+          <span class="tool-chip">Java</span>
+          <span class="tool-chip">OOP</span>
+          <span class="tool-chip">Graph Algorithms</span>
+          <span class="tool-chip">File I/O</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 006: Forage — 3-screenshot gallery -->
     <div class="project-card full-width reveal">
-      <div class="project-card-top">
-        <span class="project-num">006</span>
-        <span class="project-domain">Hackathon</span>
+      <div class="project-img-gallery">
+        <a class="project-img-link" href="./hackathon/IMG_2095.PNG" target="_blank" rel="noopener" aria-label="Forage app — AI identifying species">
+          <img src="./hackathon/IMG_2095.PNG" alt="Forage app identifying a plant species — AI processing loading screen"/>
+        </a>
+        <a class="project-img-link" href="./hackathon/IMG_2096.PNG" target="_blank" rel="noopener" aria-label="Forage app — species fact card">
+          <img src="./hackathon/IMG_2096.PNG" alt="Forage app species fact card: American Beech with 85% match confidence"/>
+        </a>
+        <a class="project-img-link" href="./hackathon/IMG_2092.PNG" target="_blank" rel="noopener" aria-label="Forage app — leaderboard">
+          <img src="./hackathon/IMG_2092.PNG" alt="Forage app leaderboard — emiliomadrigal32 ranked number 1 with 961 points"/>
+        </a>
       </div>
-      <h3 class="project-title">Forage — Gamified Nature Exploration App</h3>
-      <p class="project-desc">
-        Built a full-stack mobile app in 24 hours at HackDuke 2026 where users photograph
-        plants and animals, triggering GPT-4o Vision to identify the species and auto-generate
-        a fact card with habitat, ecological relevance, and conservation notes. Engineered a
-        gamification and live expedition tracking system with a points engine featuring
-        diminishing returns, rare species bonuses, and badge awards, alongside Auth0 PKCE
-        authentication and a Supabase PostgreSQL backend.
-      </p>
-      <div class="project-tools">
-        <span class="tool-chip">React Native</span>
-        <span class="tool-chip">Expo</span>
-        <span class="tool-chip">TypeScript</span>
-        <span class="tool-chip">Supabase</span>
-        <span class="tool-chip">OpenAI GPT-4o</span>
-        <span class="tool-chip">Auth0</span>
+      <div class="project-card-body">
+        <div class="project-card-top">
+          <span class="project-num">006</span>
+          <span class="project-domain">Hackathon</span>
+        </div>
+        <h3 class="project-title">Forage — Gamified Nature Exploration App</h3>
+        <p class="project-desc">
+          Built a full-stack mobile app in 24 hours at HackDuke 2026 where users photograph
+          plants and animals, triggering GPT-4o Vision to identify the species and auto-generate
+          a fact card with habitat, ecological relevance, and conservation notes. Engineered a
+          gamification and live expedition tracking system with a points engine featuring
+          diminishing returns, rare species bonuses, and badge awards, alongside Auth0 PKCE
+          authentication and a Supabase PostgreSQL backend.
+        </p>
+        <div class="project-tools">
+          <span class="tool-chip">React Native</span>
+          <span class="tool-chip">Expo</span>
+          <span class="tool-chip">TypeScript</span>
+          <span class="tool-chip">Supabase</span>
+          <span class="tool-chip">OpenAI GPT-4o</span>
+          <span class="tool-chip">Auth0</span>
+        </div>
       </div>
     </div>
 
@@ -651,6 +843,10 @@
       Let's build<br/><em>something</em><br/>together.
     </div>
     <div class="contact-links reveal">
+      <div class="contact-item">
+        <span class="contact-item-label">Resume</span>
+        <a class="contact-item-value" href="./Emilio%20Madrigal%20Mendoza%20-%20RESUME.pdf" download>Download PDF →</a>
+      </div>
       <div class="contact-item">
         <span class="contact-item-label">Email</span>
         <a class="contact-item-value" href="mailto:emiliomadrigal1999@gmail.com">
