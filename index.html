@@ -72,18 +72,6 @@
 
   .nav-links a:hover { color: var(--ink); }
 
-  .nav-resume a {
-    color: var(--accent) !important;
-    border: 1px solid var(--accent);
-    padding: 5px 12px;
-    transition: background 0.2s, color 0.2s !important;
-  }
-
-  .nav-resume a:hover {
-    background: var(--accent);
-    color: var(--bg) !important;
-  }
-
   /* ── HERO ── */
   #hero {
     min-height: 100vh;
@@ -176,21 +164,6 @@
     font-size: 12px;
     line-height: 1.8;
   }
-
-  .hero-cta {
-    display: inline-block;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 9px 18px;
-    text-decoration: none;
-    transition: background 0.2s, color 0.2s;
-    width: fit-content;
-  }
-
-  .hero-cta:hover { background: var(--accent); color: var(--bg); }
 
   .hero-scroll {
     font-size: 11px;
@@ -306,7 +279,6 @@
   .project-card.full-width { grid-column: 1 / -1; }
   .project-card:hover { background: #E8E4DB; }
 
-  /* Image at top — edge-to-edge, clickable */
   .project-img-link {
     display: block;
     overflow: hidden;
@@ -336,7 +308,6 @@
 
   .project-img-link:hover .project-img-slot img { transform: scale(1.04); }
 
-  /* Gallery (Forage full-width card) */
   .project-img-gallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -361,7 +332,6 @@
 
   .project-img-gallery .project-img-link:hover img { transform: scale(1.04); }
 
-  /* Card text body */
   .project-card-body {
     padding: 28px 36px 36px;
     display: flex;
@@ -539,14 +509,8 @@
     .hero-scroll-line { width: 48px; height: 1px; }
     .project-img-slot { height: 200px; }
     .project-img-gallery { grid-template-columns: 1fr; height: auto; }
-    .project-img-gallery .project-img-link { height: 240px; }
     .project-img-gallery .project-img-link:nth-child(n+2) { display: none; }
     .project-card-body { padding: 22px 24px 28px; }
-  }
-
-  @media (max-width: 480px) {
-    .nav-resume { display: none; }
-    .nav-links { gap: 16px; }
   }
 </style>
 </head>
@@ -558,7 +522,6 @@
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li class="nav-resume"><a href="./Emilio%20Madrigal%20Mendoza%20-%20RESUME.pdf" download>Resume</a></li>
   </ul>
 </nav>
 
@@ -581,7 +544,6 @@
           Building at the intersection of hardware, firmware, and computation —
           from microrobot propulsion to RISC processors.
         </p>
-        <a class="hero-cta" href="./Emilio%20Madrigal%20Mendoza%20-%20RESUME.pdf" download>Download Resume →</a>
       </div>
       <a class="hero-scroll" href="#about" aria-label="Scroll to About section">
         <span>Scroll</span>
@@ -655,7 +617,6 @@
   </div>
   <div class="projects-grid">
 
-    <!-- 001: No image (research restriction) -->
     <div class="project-card reveal">
       <div class="project-card-body">
         <div class="project-card-top">
@@ -678,7 +639,6 @@
       </div>
     </div>
 
-    <!-- 002: Logisim schematic -->
     <div class="project-card reveal">
       <a class="project-img-link" href="./cpu.png" target="_blank" rel="noopener" aria-label="View full Logisim schematic">
         <div class="project-img-slot">
@@ -705,7 +665,6 @@
       </div>
     </div>
 
-    <!-- 003: ESP32 breadboard photo -->
     <div class="project-card reveal">
       <a class="project-img-link" href="./esp32-project/esp32-breadboard.png" target="_blank" rel="noopener" aria-label="View ESP32 motor controller breadboard">
         <div class="project-img-slot">
@@ -737,7 +696,6 @@
       </div>
     </div>
 
-    <!-- 004: CX-Bot on track -->
     <div class="project-card reveal">
       <a class="project-img-link" href="./autonomous-robot/cx-bot-track.jpg" target="_blank" rel="noopener" aria-label="View CX-Bot photo">
         <div class="project-img-slot">
@@ -764,7 +722,6 @@
       </div>
     </div>
 
-    <!-- 005: Route finder map -->
     <div class="project-card reveal">
       <a class="project-img-link" href="./route-finder/route-map.png" target="_blank" rel="noopener" aria-label="View route finder output">
         <div class="project-img-slot">
@@ -792,7 +749,6 @@
       </div>
     </div>
 
-    <!-- 006: Forage — 3-screenshot gallery -->
     <div class="project-card full-width reveal">
       <div class="project-img-gallery">
         <a class="project-img-link" href="./hackathon/forage-identifying.png" target="_blank" rel="noopener" aria-label="Forage app — AI identifying species">
@@ -843,10 +799,6 @@
       Let's build<br/><em>something</em><br/>together.
     </div>
     <div class="contact-links reveal">
-      <div class="contact-item">
-        <span class="contact-item-label">Resume</span>
-        <a class="contact-item-value" href="./Emilio%20Madrigal%20Mendoza%20-%20RESUME.pdf" download>Download PDF →</a>
-      </div>
       <div class="contact-item">
         <span class="contact-item-label">Email</span>
         <a class="contact-item-value" href="mailto:emiliomadrigal1999@gmail.com">
